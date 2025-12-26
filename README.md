@@ -1,124 +1,98 @@
-## MCP server template
+# Ollama-Apify-MCP
 
-<!-- This is an Apify template readme -->
+Bring powerful **local AI** into your Apify workflows.
 
-A template for creating a [Model Context Protocol](https://modelcontextprotocol.io) server using [FastMCP](https://docs.fasitmcp.dev/) on [Apify platform](https://docs.apify.com/platform).
+This project connects **Ollama’s locally-run language models** with the **Model Context Protocol (MCP)** and Apify’s scraping & automation platform. It enables you to process scraped data, extract insights, and generate intelligent responses — all **without external APIs**.
 
-This template includes a simple example MCP server with:
+---
 
-- An `add` tool that adds two numbers together with structured output
-- A dummy `calculator-info` resource endpoint
-- Pay [Per Event monetization](https://docs.apify.com/platform/actors/publishing/monetize#pay-per-event-pricing-model) support
+## 🧠 Overview
 
-## How to use
+The **Ollama-Apify-MCP Actor** bridges Apify workflows with local LLMs via MCP, allowing AI-driven analysis and reasoning while preserving privacy and reducing costs.
 
-1. **Modify the server**: Edit `src/main.py` to add your own tools and resources
-2. **Add new tools**: Use the `@server.tool()` decorator to register new tools
-3. **Add new resources**: Use the `@server.resource()` decorator to register new resources
-4. **Update billing**: Configure billing events in `.actor/pay_per_event.json` and charge for tool calls
+---
 
-The server runs on port 3000 (or APIFY_CONTAINER_PORT if set) and exposes the MCP protocol at the `/mcp` endpoint.
+## 🚀 Key Features
 
-## Running locally
+- 🔗 **Local LLM integration** — Run models like *Llama, Mistral, CodeLlama,* and more using Ollama  
+- 🧩 **MCP-based communication** — Standards-compliant protocol for tool interaction  
+- ⚙️ **Automatic context & preprocessing** — Improves model response quality  
+- 🛠️ **Extensible tool architecture** — Easily add custom MCP tools & resources  
+- 🔁 **Robust error handling & retries** — Reliable execution in workflows  
+
+---
+
+## 📦 Quick Start
+
+### 💻 Run Locally
 
 ```bash
 pip install -r requirements.txt
 APIFY_META_ORIGIN=STANDBY python -m src
 ```
 
-The server will start and listen for MCP requests at `http://localhost:3000/mcp`
-
-## Deploying to Apify
-
-[Push your Actor](https://docs.apify.com/academy/deploying-your-code/deploying) to the Apify platform and configure [standby mode](https://docs.apify.com/platform/actors/development/programming-interface/standby).
-
-Then connect to the Actor endpoint with your MCP client: `https://me--my-mcp-server.apify.actor/mcp` using the [Streamable HTTP transport](https://modelcontextprotocol.io/specification/2025-06-18/basic/transports#streamable-http).
-
-**Important:** When connecting to your deployed MCP server, pass your Apify API token in the `Authorization` header as a Bearer token:
+Server runs at:
 
 ```
-Authorization: Bearer <YOUR_APIFY_API_TOKEN>
+http://localhost:3000/mcp
 ```
 
-### Pay per event
+---
 
-This template uses the [Pay Per Event (PPE)](https://docs.apify.com/platform/actors/publishing/monetize#pay-per-event-pricing-model) monetization model, which provides flexible pricing based on defined events.
+### ☁️ Deploy to Apify
 
-To charge users, define events in JSON format and save them on the Apify platform. Here is an example schema with the `tool-call` event:
+1. Push the repo to GitHub  
+2. Add it as an Actor in Apify Console  
+3. Enable **Standby Mode**  
+4. Deploy
 
-```json
-{
-    "tool-call": {
-        "eventTitle": "Price for completing a tool call",
-        "eventDescription": "Flat fee for completing a tool call.",
-        "eventPriceUsd": 0.05
-    }
-}
+MCP endpoint:
+
+```
+https://<actor-id>.apify.actor/mcp
 ```
 
-In the Actor, trigger the event with:
+Include your API token:
 
-```python
-await Actor.charge(event_name='tool-call')
+```
+Authorization: Bearer <APIFY_TOKEN>
 ```
 
-This approach allows you to programmatically charge users directly from your Actor, covering the costs of execution and related services.
+---
 
-To set up the PPE model for this Actor:
+## 🧰 Extend with Tools & Resources
 
-- **Configure Pay Per Event**: establish the Pay Per Event pricing schema in the Actor's **Monetization settings**. First, set the **Pricing model** to `Pay per event` and add the schema. An example schema can be found in [pay_per_event.json](.actor/pay_per_event.json).
+- Register tools using `@server.tool()`  
+- Expose resources using `@server.resource()`  
+- Optionally monetize via `.actor/pay_per_event.json`
 
-## Resources
+This project can act as a **template for custom MCP-powered agents**.
 
-- [What is Anthropic's Model Context Protocol?](https://blog.apify.com/what-is-model-context-protocol/)
-- [How to use MCP with Apify Actors](https://blog.apify.com/how-to-use-mcp/)
-- [FastMCP documentation](https://gofastmcp.com/getting-started/welcome)
-- [Python SDK examples](https://github.com/modelcontextprotocol/python-sdk/tree/main)
-- [Python tutorials in Academy](https://docs.apify.com/academy/python)
-- [Apify SDK documentation](https://docs.apify.com/sdk/python/)
-- [Webinar: Building and monetizing MCP servers on Apify](https://www.youtube.com/watch?v=w3AH3jIrXXo)
-- [Apify MCP server documentation](https://docs.apify.com/platform/integrations/mcp)
-- [Apify MCP server configuration](https://mcp.apify.com/)
+---
 
+## 🎯 Use Cases
 
-## Getting started
+- 📊 Analyze & summarize scraped web data  
+- 🔐 Privacy-first local LLM processing  
+- ⚡ Low-latency on-device inference  
+- 🧱 Build AI tools inside Apify workflows  
 
-For complete information [see this article](https://docs.apify.com/platform/actors/development#build-actor-locally). To run the Actor use the following command:
+---
 
-```bash
-apify run
-```
+## 🧩 Requirements
 
-## Deploy to Apify
+- Python 3.7+  
+- Ollama installed locally  
+- Apify CLI (for deployment)
 
-### Connect Git repository to Apify
+---
 
-If you've created a Git repository for the project, you can easily connect to Apify:
+## ❤️ Contributing
 
-1. Go to [Actor creation page](https://console.apify.com/actors/new)
-2. Click on **Link Git Repository** button
+PRs and feature ideas are welcome — feel free to extend tools, improve docs, or share sample workflows.
 
-### Push project on your local machine to Apify
+---
 
-You can also deploy the project on your local machine to Apify without the need for the Git repository.
+## 📄 License
 
-1. Log in to Apify. You will need to provide your [Apify API Token](https://console.apify.com/account/integrations) to complete this action.
-
-    ```bash
-    apify login
-    ```
-
-2. Deploy your Actor. This command will deploy and build the Actor on the Apify Platform. You can find your newly created Actor under [Actors -> My Actors](https://console.apify.com/actors?tab=my).
-
-    ```bash
-    apify push
-    ```
-
-## Documentation reference
-
-To learn more about Apify and Actors, take a look at the following resources:
-
-- [Apify SDK for JavaScript documentation](https://docs.apify.com/sdk/js)
-- [Apify SDK for Python documentation](https://docs.apify.com/sdk/python)
-- [Apify Platform documentation](https://docs.apify.com/platform)
-- [Join our developer community on Discord](https://discord.com/invite/jyEM2PRvMU)
+MIT License

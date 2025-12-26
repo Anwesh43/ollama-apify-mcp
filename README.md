@@ -24,6 +24,18 @@ The **Ollama-Apify-MCP Actor** bridges Apify workflows with local LLMs via MCP, 
 
 ## 📦 Quick Start
 
+Use as in cursor, copilot, claude code or desktop
+
+```
+{
+  "mcpServers": {
+      "ollama-apify-mcp": {
+        "url": "https://lenticular-negative--ollama-apify-mcp.apify.actor/mcp?token={YOUR_TOKEN}"
+      }
+    }
+  }
+```
+
 ### 💻 Run Locally
 
 ```bash
@@ -49,7 +61,7 @@ http://localhost:3000/mcp
 MCP endpoint:
 
 ```
-https://<actor-id>.apify.actor/mcp
+https://lenticular-negative--ollama-apify-mcp.apify.actor/mcp
 ```
 
 Include your API token:
@@ -60,11 +72,6 @@ Authorization: Bearer <APIFY_TOKEN>
 
 ---
 
-## 🧰 Extend with Tools & Resources
-
-- Register tools using `@server.tool()`  
-- Expose resources using `@server.resource()`  
-- Optionally monetize via `.actor/pay_per_event.json`
 
 This project can act as a **template for custom MCP-powered agents**.
 

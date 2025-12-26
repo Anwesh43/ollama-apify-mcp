@@ -70,12 +70,6 @@ Include your API token:
 Authorization: Bearer <APIFY_TOKEN>
 ```
 
----
-
-
-This project can act as a **template for custom MCP-powered agents**.
-
----
 
 ## 🎯 Use Cases
 

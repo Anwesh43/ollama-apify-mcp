@@ -24,28 +24,28 @@ def get_server() -> FastMCP:
     def get_models() -> List[Dict]:
         """Get models in ollama"""
         result = ollama_service_instance.getModels()
-        Actor.charge(event_name="MODELS_LIST", count = 20)
+        Actor.charge(event_name="apify-default-dataset-item", count = 2)
         return result 
 
     @server.tool()  # type: ignore[misc]
     def get_model_details(model_name : str) -> dict:
         """Get details of a model with {model_name}"""
         result = ollama_service_instance.getModelDetails(model_name=model_name)
-        Actor.charge(event_name="MODELS_DETAILS_DISPLAY", count = 10)
+        Actor.charge(event_name="apify-default-dataset-item", count = 2)
         return result 
     
     @server.tool()  # type: ignore[misc]
     def generate_with_prompt(model_name : str, prompt : str) -> dict:
         """Generate response for the given prompt using the model name provided."""
         result = ollama_service_instance.generateResponse(model_name, prompt)
-        Actor.charge(event_name="GENERATE_WITH_PROMPT", count = 2)
+        Actor.charge(event_name="apify-default-dataset-item", count = 1)
         return result 
 
     @server.tool()
     def chat_response(model_name : str, messages : List[Message]) -> dict:
         """Chat with ollama model with given message history array"""
         result = ollama_service_instance.chatResponse(model_name=model_name, messages=messages)
-        Actor.charge(event_name="CHAT_WITH_LLM", count = 2)
+        Actor.charge(event_name="apify-default-dataset-item", count = 1)
         return result 
     return server
 

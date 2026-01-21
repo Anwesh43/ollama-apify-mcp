@@ -19,5 +19,21 @@
 		"required": []
 	},
 	"dockerfile": "../Dockerfile",
-	"webServerMcpPath": "/mcp"
+	"webServerMcpPath": "/mcp",
+	"output": {
+		"actorOutputSchemaVersion": 1,
+		"title": "Output schema of the Ollama MCP Server",
+		"properties": {
+			"mcpEndpoint": {
+				"type": "string",
+				"title": "MCP Endpoint",
+				"template": "{{links.containerRunUrl}}/mcp"
+			},
+			"dataset": {
+				"type": "string",
+				"title": "Dataset",
+				"template": "{{links.apiDefaultDatasetUrl}}/items"
+			}
+		}
+	}
 }

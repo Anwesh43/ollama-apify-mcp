@@ -23,15 +23,18 @@
 	"output": {
 		"actorOutputSchemaVersion": 1,
 		"title": "Output schema of the Ollama MCP Server",
+		"description": "MCP server endpoint and interaction logs",
 		"properties": {
 			"mcpEndpoint": {
 				"type": "string",
 				"title": "MCP Endpoint",
-				"template": "{{links.containerRunUrl}}/mcp"
+				"description": "URL to access the MCP server endpoint",
+				"template": "{{run.containerUrl}}/mcp"
 			},
 			"dataset": {
 				"type": "string",
 				"title": "Dataset",
+				"description": "Interaction logs and tool call results stored in the default dataset",
 				"template": "{{links.apiDefaultDatasetUrl}}/items"
 			}
 		}

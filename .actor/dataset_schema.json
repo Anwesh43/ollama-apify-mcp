@@ -1,0 +1,197 @@
+{
+	"actorSpecification": 1,
+	"fields": {
+		"type": "object",
+		"properties": {
+			"toolName": {
+				"type": "string",
+				"description": "Name of the MCP tool that was called"
+			},
+			"timestamp": {
+				"type": "string",
+				"format": "date-time",
+				"description": "Timestamp when the tool was called"
+			},
+			"modelName": {
+				"type": "string",
+				"description": "Name of the Ollama model used (if applicable)"
+			},
+			"result": {
+				"type": "object",
+				"description": "Result returned from the tool call"
+			},
+			"name": {
+				"type": "string",
+				"description": "Model name (for get_models tool)"
+			},
+			"size": {
+				"type": "number",
+				"description": "Model size in bytes (for get_models tool)"
+			},
+			"response": {
+				"type": "string",
+				"description": "Generated response text (for generate_with_prompt and chat_response tools)"
+			},
+			"prompt": {
+				"type": "string",
+				"description": "Input prompt (for generate_with_prompt tool)"
+			},
+			"messages": {
+				"type": "array",
+				"description": "Chat messages array (for chat_response tool)"
+			}
+		}
+	},
+	"views": {
+		"overview": {
+			"title": "Overview",
+			"description": "All MCP tool call interactions and results",
+			"transformation": {
+				"fields": [
+					"toolName",
+					"timestamp",
+					"modelName",
+					"name",
+					"size",
+					"response",
+					"prompt"
+				],
+				"desc": true
+			},
+			"display": {
+				"component": "table",
+				"properties": {
+					"toolName": {
+						"label": "Tool Name",
+						"format": "text"
+					},
+					"timestamp": {
+						"label": "Timestamp",
+						"format": "date"
+					},
+					"modelName": {
+						"label": "Model",
+						"format": "text"
+					},
+					"name": {
+						"label": "Model Name",
+						"format": "text"
+					},
+					"size": {
+						"label": "Size (bytes)",
+						"format": "number"
+					},
+					"response": {
+						"label": "Response",
+						"format": "text"
+					},
+					"prompt": {
+						"label": "Prompt",
+						"format": "text"
+					}
+				}
+			}
+		},
+		"models": {
+			"title": "Models",
+			"description": "List of available Ollama models",
+			"transformation": {
+				"fields": [
+					"name",
+					"size",
+					"timestamp"
+				],
+				"omit": ["toolName", "modelName", "result", "response", "prompt", "messages"],
+				"desc": true
+			},
+			"display": {
+				"component": "table",
+				"properties": {
+					"name": {
+						"label": "Model Name",
+						"format": "text"
+					},
+					"size": {
+						"label": "Size (bytes)",
+						"format": "number"
+					},
+					"timestamp": {
+						"label": "Timestamp",
+						"format": "date"
+					}
+				}
+			}
+		},
+		"generations": {
+			"title": "Generations",
+			"description": "Text generation results from prompts",
+			"transformation": {
+				"fields": [
+					"modelName",
+					"prompt",
+					"response",
+					"timestamp"
+				],
+				"omit": ["toolName", "name", "size", "result", "messages"],
+				"desc": true
+			},
+			"display": {
+				"component": "table",
+				"properties": {
+					"modelName": {
+						"label": "Model",
+						"format": "text"
+					},
+					"prompt": {
+						"label": "Prompt",
+						"format": "text"
+					},
+					"response": {
+						"label": "Response",
+						"format": "text"
+					},
+					"timestamp": {
+						"label": "Timestamp",
+						"format": "date"
+					}
+				}
+			}
+		},
+		"chats": {
+			"title": "Chats",
+			"description": "Chat conversation results",
+			"transformation": {
+				"fields": [
+					"modelName",
+					"messages",
+					"response",
+					"timestamp"
+				],
+				"omit": ["toolName", "name", "size", "result", "prompt"],
+				"desc": true
+			},
+			"display": {
+				"component": "table",
+				"properties": {
+					"modelName": {
+						"label": "Model",
+						"format": "text"
+					},
+					"messages": {
+						"label": "Messages",
+						"format": "array"
+					},
+					"response": {
+						"label": "Response",
+						"format": "text"
+					},
+					"timestamp": {
+						"label": "Timestamp",
+						"format": "date"
+					}
+				}
+			}
+		}
+	}
+}
+

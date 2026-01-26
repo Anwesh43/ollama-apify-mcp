@@ -20,6 +20,9 @@
 	},
 	"dockerfile": "../Dockerfile",
 	"webServerMcpPath": "/mcp",
+	"storages": {
+		"dataset": "./dataset_schema.json"
+	},
 	"output": {
 		"actorOutputSchemaVersion": 1,
 		"title": "Output schema of the Ollama MCP Server",
@@ -31,11 +34,29 @@
 				"description": "URL to access the MCP server endpoint",
 				"template": "{{run.containerUrl}}/mcp"
 			},
-			"dataset": {
+			"overview": {
 				"type": "string",
-				"title": "Dataset",
-				"description": "Interaction logs and tool call results stored in the default dataset",
-				"template": "{{links.apiDefaultDatasetUrl}}/items"
+				"title": "Overview",
+				"description": "All MCP tool call interactions and results",
+				"template": "{{links.apiDefaultDatasetUrl}}/items?view=overview"
+			},
+			"models": {
+				"type": "string",
+				"title": "Models",
+				"description": "List of available Ollama models",
+				"template": "{{links.apiDefaultDatasetUrl}}/items?view=models"
+			},
+			"generations": {
+				"type": "string",
+				"title": "Generations",
+				"description": "Text generation results from prompts",
+				"template": "{{links.apiDefaultDatasetUrl}}/items?view=generations"
+			},
+			"chats": {
+				"type": "string",
+				"title": "Chats",
+				"description": "Chat conversation results",
+				"template": "{{links.apiDefaultDatasetUrl}}/items?view=chats"
 			}
 		}
 	}
